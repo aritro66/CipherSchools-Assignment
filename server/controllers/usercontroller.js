@@ -3,9 +3,13 @@ const usercreater = require("../models/user");
 const updateuser = async (req, res) => {
   try {
     const email = req.query.email;
-    const data = await creater.findOneAndUpdate({ email: email }, req.body, {
-      new: true,
-    });
+    const data = await usercreater.findOneAndUpdate(
+      { email: email },
+      req.body,
+      {
+        new: true,
+      }
+    );
     res.json({
       fname: data.fname,
       lname: data.lname,
@@ -27,3 +31,25 @@ const updateuser = async (req, res) => {
     res.status(400).json("Unable to update");
   }
 };
+
+const followers = async (req, res) => {
+  try {
+    const followerids = await usercreater.find({ email: req.query.email });
+    // console.log(followersids)
+    const followerdata = await usercreater.find({
+      _id: { $in: [...followerids[0].followers] },
+    });
+    const followerdatares = followerdata.map((data) => ({
+      fname: data.fname,
+      lname: data.lname,
+      email: data.email,
+      highesteducation: data.highesteducation,
+    }));
+    res.json(followerdatares);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send("error");
+  }
+};
+
+module.exports = { followers, updateuser };

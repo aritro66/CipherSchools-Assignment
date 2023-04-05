@@ -7,6 +7,7 @@ const cors = require("cors");
 app.use(cors());
 app.use(morgan("dev"));
 const authroutes = require("./routes/authroutes");
+const userroutes = require("./routes/userroutes");
 
 const PORT = process.env.PORT || 5001;
 // url to connect mongodb
@@ -23,3 +24,4 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" })); // parsing form 
 app.use(express.json({ limit: "50mb" }));
 
 app.use("/api/auth", authroutes);
+app.use("/api/user", userroutes);
