@@ -10,6 +10,13 @@ const userSchema = new mongoose.Schema({
   highesteducation: { type: Number, default: 0 },
   currentstatus: { type: Number, default: 0 },
   interests: [{ type: Number }],
+  aboutme: { type: String, default: "" },
+  linkedinlink: { type: String, default: "" },
+  githublink: { type: String, default: "" },
+  facebooklink: { type: String, default: "" },
+  twitterlink: { type: String, default: "" },
+  instagramlink: { type: String, default: "" },
+  websitelink: { type: String, default: "" },
 });
 // creating model
 const usercreater = new mongoose.model("users", userSchema);
