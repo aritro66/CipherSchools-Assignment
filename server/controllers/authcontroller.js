@@ -76,6 +76,11 @@ const signup = async (req, res) => {
   console.log(req.body);
 
   try {
+    const oldUser = await usercreater.findOne({ email: req.body.email });
+
+    if (oldUser) {
+      return res.status(409).send("User Already Exist. Please Login");
+    }
     const salt = bcrypt.genSaltSync(10); // generating salt
     // salt is a string of charcters different from password
     const password = req.body.password;
