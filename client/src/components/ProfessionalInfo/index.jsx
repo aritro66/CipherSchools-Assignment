@@ -1,19 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Box,
   Button,
   Divider,
-  TextField,
   Typography,
   Grid,
   MenuItem,
   Select,
 } from "@mui/material";
-
 import { useTheme } from "@mui/material";
+import { UserContext } from "../../contexts/usercontext";
 
 export default function ProfessionalInfo() {
   const theme = useTheme();
+  const user = useContext(UserContext);
   return (
     <>
       <Box>
@@ -66,7 +66,7 @@ export default function ProfessionalInfo() {
                       ".MuiOutlinedInput-notchedOutline": { border: 0 },
                       height: 30,
                     }}
-                    defaultValue={0}
+                    defaultValue={user.highesteducation}
                     displayEmpty
                   >
                     <MenuItem value={0}>Primary</MenuItem>
@@ -101,7 +101,7 @@ export default function ProfessionalInfo() {
                       ".MuiOutlinedInput-notchedOutline": { border: 0 },
                       height: 30,
                     }}
-                    defaultValue={0}
+                    defaultValue={user.currentstatus}
                     displayEmpty
                   >
                     <MenuItem value={0}>Schooling</MenuItem>

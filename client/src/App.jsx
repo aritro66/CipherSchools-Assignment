@@ -38,7 +38,6 @@ function App() {
 
   useEffect(() => {
     if (localStorage.hasOwnProperty("profile")) {
-      // setuserId(localStorage.getItem("profile"));
       setIsLoggedIn(true);
       setUserDetails(JSON.parse(localStorage.getItem("profile")));
     }

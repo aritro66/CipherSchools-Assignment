@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, Button, Divider, Typography } from "@mui/material";
 import { useTheme } from "@mui/material";
 import TextField from "@mui/material/TextField";
+import { UserContext } from "../../contexts/usercontext";
 
 export default function AboutInfo() {
   const theme = useTheme();
+  const user = useContext(UserContext);
   return (
     <>
       <Box>
@@ -37,6 +39,7 @@ export default function AboutInfo() {
             label=""
             type="text"
             multiline={true}
+            value={user.aboutme}
             rows={4}
             placeholder="Add something about you."
             sx={{ width: "100%", backgroundColor: theme.palette.primary.main }}
