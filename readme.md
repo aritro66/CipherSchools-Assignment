@@ -15,12 +15,6 @@ This is a project to replicate the CipherSchools profile page using React, Vite,
 
 The website is deployed on Vercel at https://cipher-schools-assignment-aritro66.vercel.app/
 
-## Video Demontration
-
-
-Uploading assignment.mp4…
-
-
 
 ## Getting Started
 
