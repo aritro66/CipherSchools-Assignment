@@ -54,12 +54,8 @@ export default function HeatMap() {
             startDate={new Date("2022-04-01")}
             endDate={new Date("2023-04-01")}
             showWeekdayLabels={true}
-            values={[
-              ...dates,
-              // ...and so on
-            ]}
+            values={[...dates]}
             classForValue={(value) => {
-              //   console.log(value.count);
               if (value.count < 5) {
                 return `color-cipher-${0}`;
               } else if (value.count < 10) {
@@ -72,14 +68,6 @@ export default function HeatMap() {
                 return `color-cipher-${4}`;
               }
             }}
-            // tooltipDataAttrs={(value) => {
-            //   console.log;
-            //   return {
-            //     "data-tip": ` ${Math.floor(
-            //       value.count
-            //     )} Cipher point on ${value.date.toISOString().slice(0, 10)}`,
-            //   };
-            // }}
           />
           <ReactTooltip />
         </Box>

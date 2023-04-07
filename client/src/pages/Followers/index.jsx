@@ -16,7 +16,6 @@ export default function Followers() {
         return res.data;
       })
       .then((resData) => {
-        console.log(resData);
         setList([...resData]);
       });
   }, []);

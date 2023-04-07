@@ -35,7 +35,6 @@ export default function ProfessionalInfo() {
           return res.data;
         })
         .then((resData) => {
-          console.log(resData);
           user.update(resData);
           setIsEdit(() => false);
         })
@@ -45,7 +44,7 @@ export default function ProfessionalInfo() {
         });
     }
   };
-  console.log(profDetails);
+
   return (
     <>
       <Box>

@@ -1,13 +1,15 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
-const API = axios.create({ baseURL: "http://localhost:5001/api/" });
+const API = axios.create({ baseURL: `${import.meta.env.VITE_API_LINK}` });
 const refreshToken = async () => {
   try {
-    const res = await axios.post("http://localhost:5001/api/auth/refresh", {
-      token: JSON.parse(localStorage.getItem("profile")).refreshToken,
-    });
-    console.log(res);
+    const res = await axios.post(
+      `${import.meta.env.VITE_API_LINK}auth/refresh`,
+      {
+        token: JSON.parse(localStorage.getItem("profile")).refreshToken,
+      }
+    );
     return {
       accessToken: res.data.accessToken,
       refreshToken: res.data.refreshToken,

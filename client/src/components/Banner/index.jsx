@@ -91,7 +91,9 @@ export default function Banner() {
             </Box>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography textAlign="center">0 Followers</Typography>{" "}
+            <Typography textAlign="center">
+              {user.followercount} Followers
+            </Typography>{" "}
           </Box>
         </Box>
       </Box>

@@ -43,7 +43,6 @@ export default function WebLinkInfo() {
           return res.data;
         })
         .then((resData) => {
-          console.log(resData);
           user.update(resData);
           setIsEdit(() => false);
         })

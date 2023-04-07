@@ -22,6 +22,7 @@ function App() {
     twitterlink: "",
     websitelink: "",
     facebooklink: "",
+    followercount: 0,
     interests: [],
   };
   const [userDetails, setUserDetails] = useState({ ...inintialState });
@@ -50,7 +51,7 @@ function App() {
       setUserDetails(JSON.parse(localStorage.getItem("profile")));
     }
   }, []);
-  console.log(isLoggedIn);
+
   let routes;
   if (!isLoggedIn) {
     routes = (

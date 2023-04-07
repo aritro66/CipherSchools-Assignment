@@ -10,7 +10,7 @@ export default function AboutInfo() {
   const user = useContext(UserContext);
   const [aboutDetails, setAboutDetails] = useState(user.aboutme);
   const [isEdit, setIsEdit] = useState(false);
-  // console.log(aboutDetails);
+
   const handleClick = async () => {
     if (!isEdit) {
       setIsEdit(() => true);
@@ -28,7 +28,6 @@ export default function AboutInfo() {
           return res.data;
         })
         .then((resData) => {
-          console.log(resData);
           user.update(resData);
           setIsEdit(() => false);
         })

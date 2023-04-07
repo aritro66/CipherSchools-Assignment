@@ -35,7 +35,6 @@ export default function Interests() {
         return res.data;
       })
       .then((resData) => {
-        console.log(resData);
         user.update(resData);
         setOpen(() => false);
       })
@@ -76,7 +75,6 @@ export default function Interests() {
                       },
                     }}
                     onClick={() => {
-                      console.log(index);
                       setInterests((prev) => {
                         prev[index] = 1 - prev[index];
                         return prev;
@@ -106,10 +104,7 @@ export default function Interests() {
                 },
               }}
               onClick={() => {
-                console.log("jj");
-                console.log([...user.interests]);
                 setInterests(() => [...user.interests]);
-                console.log(interests);
                 forceUpdate();
                 setOpen(() => false);
               }}

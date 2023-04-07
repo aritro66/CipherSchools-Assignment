@@ -58,14 +58,12 @@ export default function PasswordChange() {
     }
     await ChangePassword({ email: user.email, ...pass })
       .then((res) => {
-        console.log(res);
         if (res.status === 400 || res.status === 401) {
           throw new Error("Failed!");
         }
         return res.data;
       })
       .then((resData) => {
-        console.log(resData);
         setOpen(() => false);
       })
       .catch((err) => {
@@ -120,7 +118,6 @@ export default function PasswordChange() {
                 <BsEye
                   size={25}
                   onClick={() => {
-                    console.log("pas");
                     setShow((prev) => {
                       prev.show1 = !prev.show1;
                       return prev;

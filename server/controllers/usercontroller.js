@@ -36,7 +36,6 @@ const updateuser = async (req, res) => {
 const followers = async (req, res) => {
   try {
     const followerids = await usercreater.find({ email: req.query.email });
-    // console.log(followersids)
     const followerdata = await usercreater.find({
       _id: { $in: [...followerids[0].followers] },
     });

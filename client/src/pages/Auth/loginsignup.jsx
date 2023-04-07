@@ -16,7 +16,6 @@ export default function SignUpIn() {
   const navigate = useNavigate();
   //   const { setValue, removeValue } = useLocalStorage();
   const auth = useContext(UserContext);
-  console.log(auth);
   const handleLogin = async (e) => {
     e.preventDefault();
     const email = loginForm.email;
@@ -35,7 +34,6 @@ export default function SignUpIn() {
         return res.data;
       })
       .then((resData) => {
-        console.log(resData);
         auth.login(resData);
         // navigate("/");
       })
@@ -61,7 +59,7 @@ export default function SignUpIn() {
       return;
     }
 
-    SignUp({ fname, lanme, email, password })
+    SignUp({ fname, lname, email, password })
       .then((res) => {
         if (res.status === 400) {
           throw new Error("Failed!");
@@ -69,7 +67,6 @@ export default function SignUpIn() {
         return res.data;
       })
       .then((resData) => {
-        console.log(resData);
         auth.login(resData);
         // navigate("/home");
       })
