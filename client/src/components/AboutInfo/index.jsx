@@ -1,12 +1,43 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Box, Button, Divider, Typography } from "@mui/material";
 import { useTheme } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { UserContext } from "../../contexts/usercontext";
+import { UpdateUser } from "../../api";
 
 export default function AboutInfo() {
   const theme = useTheme();
   const user = useContext(UserContext);
+  const [aboutDetails, setAboutDetails] = useState(user.aboutme);
+  const [isEdit, setIsEdit] = useState(false);
+  // console.log(aboutDetails);
+  const handleClick = async () => {
+    if (!isEdit) {
+      setIsEdit(() => true);
+      return;
+    } else {
+      if (aboutDetails.trim().length === 0) {
+        alert("About details cannot be empty");
+        return;
+      }
+      await UpdateUser({ aboutme: aboutDetails }, user.email)
+        .then((res) => {
+          if (res.status === 400) {
+            throw new Error("Failed!");
+          }
+          return res.data;
+        })
+        .then((resData) => {
+          console.log(resData);
+          user.update(resData);
+          setIsEdit(() => false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsEdit(() => false);
+        });
+    }
+  };
   return (
     <>
       <Box>
@@ -28,9 +59,13 @@ export default function AboutInfo() {
             sx={{
               color: theme.palette.primary.main,
               backgroundColor: theme.palette.yellowCombination.y1,
+              "&:hover": {
+                backgroundColor: theme.palette.yellowCombination.y2,
+              },
             }}
+            onClick={handleClick}
           >
-            Edit
+            {!isEdit ? "Edit" : "Save"}
           </Button>
         </Box>
         <Box sx={{ marginBottom: "25px" }}>
@@ -39,7 +74,11 @@ export default function AboutInfo() {
             label=""
             type="text"
             multiline={true}
-            value={user.aboutme}
+            defaultValue={user.aboutme}
+            disabled={!isEdit}
+            onChange={(e) => {
+              setAboutDetails(e.target.value);
+            }}
             rows={4}
             placeholder="Add something about you."
             sx={{ width: "100%", backgroundColor: theme.palette.primary.main }}

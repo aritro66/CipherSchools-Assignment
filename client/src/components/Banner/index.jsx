@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
 import logo from "../../assets/images/ProfileCover.png";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, useTheme } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import { MdModeEditOutline } from "react-icons/md";
-import useTheme from "@mui/material";
 import { UserContext } from "../../contexts/usercontext";
 
 export default function Banner() {
@@ -49,7 +48,7 @@ export default function Banner() {
                   borderRadius: "50%",
                   height: "16px",
                   width: "16px",
-                  display: "flex",
+                  // display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   backgroundColor: theme.palette.primary.contrastText,

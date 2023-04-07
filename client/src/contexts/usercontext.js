@@ -17,4 +17,5 @@ export const UserContext = createContext({
   interests: [],
   login: () => {},
   logout: () => {},
+  update: () => {},
 });

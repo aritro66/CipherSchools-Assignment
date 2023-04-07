@@ -33,6 +33,9 @@ export default function PasswordChange() {
             sx={{
               color: theme.palette.primary.main,
               backgroundColor: theme.palette.yellowCombination.y1,
+              "&:hover": {
+                backgroundColor: theme.palette.yellowCombination.y2,
+              },
             }}
           >
             Change

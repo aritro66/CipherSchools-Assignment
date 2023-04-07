@@ -27,7 +27,7 @@ export default function SignUpIn() {
       return;
     }
 
-    LogIn({ email, password })
+    await LogIn({ email, password })
       .then((res) => {
         if (res.status === 400) {
           throw new Error("Failed!");

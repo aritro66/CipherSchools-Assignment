@@ -8,7 +8,7 @@ import SignUpIn from "./pages/Auth/loginsignup";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userDetails, setUserDetails] = useState({
+  const inintialState = {
     fname: "",
     lname: "",
     phno: "",
@@ -22,18 +22,26 @@ function App() {
     twitterlink: "",
     websitelink: "",
     interests: [],
-  });
+  };
+  const [userDetails, setUserDetails] = useState({ ...inintialState });
+
   const login = useCallback((data) => {
     localStorage.setItem("profile", JSON.stringify(data));
     setIsLoggedIn(true);
-    setUserDetails(data);
+    setUserDetails((prev) => ({ ...prev, ...data }));
     setuserId(localStorage.getItem("profile"));
   }, []);
 
   const logout = useCallback(() => {
     setIsLoggedIn(false);
-    setuserId(null);
+    setUserDetails(inintialState);
     localStorage.removeItem("profile");
+  }, []);
+
+  const update = useCallback((data) => {
+    const oldData = JSON.parse(localStorage.getItem("profile"));
+    setUserDetails((prev) => ({ ...prev, ...data }));
+    localStorage.setItem("profile", JSON.stringify({ ...oldData, ...data }));
   }, []);
 
   useEffect(() => {
@@ -42,6 +50,7 @@ function App() {
       setUserDetails(JSON.parse(localStorage.getItem("profile")));
     }
   }, []);
+
   return (
     <>
       <UserContext.Provider
@@ -49,6 +58,7 @@ function App() {
           isLoggedIn,
           login,
           logout,
+          update,
           ...userDetails,
         }}
       >
