@@ -57,6 +57,7 @@ const login = async (req, res) => {
           twitterlink: data2[0].twitterlink,
           instagramlink: data2[0].instagramlink,
           websitelink: data2[0].websitelink,
+          followercount: data2[0].followers.length,
           accessToken,
           refreshToken,
         });
@@ -113,6 +114,7 @@ const signup = async (req, res) => {
       twitterlink: data[0].twitterlink,
       instagramlink: data[0].instagramlink,
       websitelink: data[0].websitelink,
+      followercount: data[0].followers.length,
       accessToken,
       refreshToken,
     });

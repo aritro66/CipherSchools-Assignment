@@ -50,7 +50,26 @@ function App() {
       setUserDetails(JSON.parse(localStorage.getItem("profile")));
     }
   }, []);
-
+  console.log(isLoggedIn);
+  let routes;
+  if (!isLoggedIn) {
+    routes = (
+      <Routes>
+        <Route path="/" element={<Navigate to="/account" />} />
+        <Route path="/account" element={<SignUpIn />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    );
+  } else {
+    routes = (
+      <Routes>
+        <Route path="/" element={<Navigate to="/profile" />} />
+        <Route path="/profile" element={<ProfileInfo />} />
+        <Route path="/followers" element={<Followers />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    );
+  }
   return (
     <>
       <UserContext.Provider
@@ -62,25 +81,7 @@ function App() {
           ...userDetails,
         }}
       >
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Navigate to="/profile" />} />
-            <Route
-              path="/account"
-              element={!isLoggedIn ? <SignUpIn /> : <Navigate to="/profile" />}
-            />
-            <Route
-              path="/profile"
-              element={
-                isLoggedIn ? <ProfileInfo /> : <Navigate to="/account" />
-              }
-            />
-            <Route
-              path="/followers"
-              element={isLoggedIn ? <Followers /> : <Navigate to="/account" />}
-            />
-          </Routes>
-        </Layout>
+        <Layout>{routes}</Layout>
       </UserContext.Provider>
     </>
   );

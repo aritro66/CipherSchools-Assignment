@@ -25,6 +25,7 @@ const updateuser = async (req, res) => {
       twitterlink: data.twitterlink,
       instagramlink: data.instagramlink,
       websitelink: data.websitelink,
+      followercount: data.followers.length,
     });
   } catch (error) {
     console.log(error);
@@ -44,6 +45,7 @@ const followers = async (req, res) => {
       lname: data.lname,
       email: data.email,
       highesteducation: data.highesteducation,
+      followercount: data.followers.length,
     }));
     res.json(followerdatares);
   } catch (err) {

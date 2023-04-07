@@ -44,3 +44,5 @@ export const UpdateUser = (formData, email) =>
   API.put(`/user/updateuser?email=${email}`, formData);
 export const ChangePassword = (formData) =>
   API.put("/auth/changepassword", formData);
+export const FollowerList = (email) =>
+  API.get(`/user/followers?email=${email}`);
