@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -12,9 +12,48 @@ import { BsLinkedin, BsGithub, BsFacebook } from "react-icons/bs";
 import { AiFillTwitterCircle, AiFillInstagram } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
 import { VscGlobe } from "react-icons/vsc";
+import { UserContext } from "../../contexts/usercontext";
+import { UpdateUser } from "../../api";
 
 export default function WebLinkInfo() {
   const theme = useTheme();
+  const user = useContext(UserContext);
+  const [links, setlinks] = useState({
+    githublink: user.githublink,
+    instagramlink: user.instagramlink,
+    linkedinlink: user.linkedinlink,
+    twitterlink: user.twitterlink,
+    websitelink: user.websitelink,
+    facebooklink: user.facebooklink,
+  });
+  const [isEdit, setIsEdit] = useState(false);
+  const handleChange = (e) => {
+    setlinks((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  const handleClick = async () => {
+    if (!isEdit) {
+      setIsEdit(() => true);
+      return;
+    } else {
+      await UpdateUser({ ...links }, user.email)
+        .then((res) => {
+          if (res.status === 400) {
+            throw new Error("Failed!");
+          }
+          return res.data;
+        })
+        .then((resData) => {
+          console.log(resData);
+          user.update(resData);
+          setIsEdit(() => false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsEdit(() => false);
+        });
+    }
+  };
+
   return (
     <>
       <Box>
@@ -41,8 +80,9 @@ export default function WebLinkInfo() {
                 backgroundColor: theme.palette.yellowCombination.y2,
               },
             }}
+            onClick={handleClick}
           >
-            Edit
+            {!isEdit ? "Edit" : "Save"}
           </Button>
         </Box>
         <Box sx={{ marginBottom: "30px" }}>
@@ -68,12 +108,14 @@ export default function WebLinkInfo() {
                   <TextField
                     type="text"
                     placeholder="Linkedin"
-                    // size="small"
+                    name="linkedinlink"
+                    disabled={!isEdit}
+                    onChange={handleChange}
                     sx={{ "& fieldset": { border: "none" } }}
                     InputProps={{ sx: { height: 30 } }}
                     fullWidth
                   />
-                  <MdModeEditOutline size={25} />
+                  {isEdit && <MdModeEditOutline size={25} />}
                 </Box>
               </Box>
             </Grid>
@@ -98,12 +140,14 @@ export default function WebLinkInfo() {
                   <TextField
                     type="text"
                     placeholder="Github"
-                    // size="small"
+                    name="githublink"
+                    onChange={handleChange}
+                    disabled={!isEdit}
                     sx={{ "& fieldset": { border: "none" } }}
                     InputProps={{ sx: { height: 30 } }}
                     fullWidth
                   />
-                  <MdModeEditOutline size={25} />
+                  {isEdit && <MdModeEditOutline size={25} />}
                 </Box>
               </Box>
             </Grid>
@@ -128,12 +172,14 @@ export default function WebLinkInfo() {
                   <TextField
                     type="text"
                     placeholder="Facebook"
-                    // size="small"
+                    name="facebooklink"
+                    disabled={!isEdit}
+                    onChange={handleChange}
                     sx={{ "& fieldset": { border: "none" } }}
                     InputProps={{ sx: { height: 30 } }}
                     fullWidth
                   />
-                  <MdModeEditOutline size={25} />
+                  {isEdit && <MdModeEditOutline size={25} />}
                 </Box>
               </Box>
             </Grid>
@@ -158,12 +204,14 @@ export default function WebLinkInfo() {
                   <TextField
                     type="text"
                     placeholder="Twitter"
-                    // size="small"
+                    disabled={!isEdit}
+                    onChange={handleChange}
+                    name="twitterlink"
                     sx={{ "& fieldset": { border: "none" } }}
                     InputProps={{ sx: { height: 30 } }}
                     fullWidth
                   />
-                  <MdModeEditOutline size={25} />
+                  {isEdit && <MdModeEditOutline size={25} />}
                 </Box>
               </Box>
             </Grid>
@@ -188,12 +236,14 @@ export default function WebLinkInfo() {
                   <TextField
                     type="text"
                     placeholder="Instagram"
-                    // size="small"
+                    disabled={!isEdit}
+                    onChange={handleChange}
+                    name="instagramlink"
                     sx={{ "& fieldset": { border: "none" } }}
                     InputProps={{ sx: { height: 30 } }}
                     fullWidth
                   />
-                  <MdModeEditOutline size={25} />
+                  {isEdit && <MdModeEditOutline size={25} />}
                 </Box>
               </Box>
             </Grid>
@@ -218,12 +268,14 @@ export default function WebLinkInfo() {
                   <TextField
                     type="text"
                     placeholder="Website"
-                    // size="small"
+                    disabled={!isEdit}
+                    onChange={handleChange}
+                    name="websitelink"
                     sx={{ "& fieldset": { border: "none" } }}
                     InputProps={{ sx: { height: 30 } }}
                     fullWidth
                   />
-                  <MdModeEditOutline size={25} />
+                  {isEdit && <MdModeEditOutline size={25} />}
                 </Box>
               </Box>
             </Grid>

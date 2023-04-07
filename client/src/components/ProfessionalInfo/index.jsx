@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -10,10 +10,42 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material";
 import { UserContext } from "../../contexts/usercontext";
-
+import { UpdateUser } from "../../api";
 export default function ProfessionalInfo() {
   const theme = useTheme();
   const user = useContext(UserContext);
+  const [profDetails, setProfDetails] = useState({
+    highesteducation: user.highesteducation,
+    currentstatus: user.currentstatus,
+  });
+  const [isEdit, setIsEdit] = useState(false);
+  const handleChange = (e) => {
+    setProfDetails((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  const handleClick = async () => {
+    if (!isEdit) {
+      setIsEdit(() => true);
+      return;
+    } else {
+      await UpdateUser({ ...profDetails }, user.email)
+        .then((res) => {
+          if (res.status === 400) {
+            throw new Error("Failed!");
+          }
+          return res.data;
+        })
+        .then((resData) => {
+          console.log(resData);
+          user.update(resData);
+          setIsEdit(() => false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsEdit(() => false);
+        });
+    }
+  };
+  console.log(profDetails);
   return (
     <>
       <Box>
@@ -40,8 +72,9 @@ export default function ProfessionalInfo() {
                 backgroundColor: theme.palette.yellowCombination.y2,
               },
             }}
+            onClick={handleClick}
           >
-            Edit
+            {!isEdit ? "Edit" : "Save"}
           </Button>
         </Box>
         <Box sx={{ marginBottom: "30px" }}>
@@ -69,6 +102,9 @@ export default function ProfessionalInfo() {
                       ".MuiOutlinedInput-notchedOutline": { border: 0 },
                       height: 30,
                     }}
+                    name="highesteducation"
+                    disabled={!isEdit}
+                    onChange={handleChange}
                     defaultValue={user.highesteducation}
                     displayEmpty
                   >
@@ -104,6 +140,9 @@ export default function ProfessionalInfo() {
                       ".MuiOutlinedInput-notchedOutline": { border: 0 },
                       height: 30,
                     }}
+                    name="currentstatus"
+                    disabled={!isEdit}
+                    onChange={handleChange}
                     defaultValue={user.currentstatus}
                     displayEmpty
                   >

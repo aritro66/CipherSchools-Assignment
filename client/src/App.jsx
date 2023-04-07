@@ -21,6 +21,7 @@ function App() {
     linkedinlink: "",
     twitterlink: "",
     websitelink: "",
+    facebooklink: "",
     interests: [],
   };
   const [userDetails, setUserDetails] = useState({ ...inintialState });
@@ -29,7 +30,6 @@ function App() {
     localStorage.setItem("profile", JSON.stringify(data));
     setIsLoggedIn(true);
     setUserDetails((prev) => ({ ...prev, ...data }));
-    setuserId(localStorage.getItem("profile"));
   }, []);
 
   const logout = useCallback(() => {
