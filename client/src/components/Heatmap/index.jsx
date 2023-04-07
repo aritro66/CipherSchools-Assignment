@@ -72,14 +72,14 @@ export default function HeatMap() {
                 return `color-cipher-${4}`;
               }
             }}
-            tooltipDataAttrs={(value) => {
-              console.log;
-              return {
-                "data-tip": ` ${Math.floor(
-                  value.count
-                )} Cipher point on ${value.date.toISOString().slice(0, 10)}`,
-              };
-            }}
+            // tooltipDataAttrs={(value) => {
+            //   console.log;
+            //   return {
+            //     "data-tip": ` ${Math.floor(
+            //       value.count
+            //     )} Cipher point on ${value.date.toISOString().slice(0, 10)}`,
+            //   };
+            // }}
           />
           <ReactTooltip />
         </Box>

@@ -1,7 +1,7 @@
 export const getDesignTokens = (mode) => ({
   palette: {
     mode,
-    primary: { main: "#fff", contrastText: "#222831" },
+    primary: { main: "#fff", light: "#f5f5f5", contrastText: "#222831" },
     secondary: { main: "#f2f5fa", contrastText: "#222831" },
     yellowCombination: {
       y1: "#f3912e",

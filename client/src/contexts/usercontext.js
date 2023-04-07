@@ -15,7 +15,7 @@ export const UserContext = createContext({
   twitterlink: "",
   websitelink: "",
   facebooklink: "",
-  interests: [],
+  interests: [0, 0, 0, 0, 0, 0, 0, 0],
   login: () => {},
   logout: () => {},
   update: () => {},

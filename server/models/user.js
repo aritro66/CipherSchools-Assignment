@@ -9,7 +9,10 @@ const userSchema = new mongoose.Schema({
   followers: [{ type: String }],
   highesteducation: { type: Number, default: 0 },
   currentstatus: { type: Number, default: 0 },
-  interests: [{ type: Number }],
+  interests: {
+    type: Array,
+    default: [0, 0, 0, 0, 0, 0, 0, 0],
+  },
   aboutme: { type: String, default: "" },
   linkedinlink: { type: String, default: "" },
   githublink: { type: String, default: "" },
