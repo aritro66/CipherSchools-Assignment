@@ -11,9 +11,6 @@ This is a project to replicate the CipherSchools profile page using React, Vite,
 - Update user interests.
 - View followers in a paginated and optimized manner.
 
-## Deployed Website
-
-The website is deployed on Vercel at https://cipher-schools-assignment-aritro66.vercel.app/
 
 ## Video Demontration
 
